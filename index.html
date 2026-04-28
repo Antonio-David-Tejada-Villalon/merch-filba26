@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Merch</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- FontAwesome Modern -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- SheetJS para exportar a Excel -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+    <!-- SweetAlert2 para alertas bonitas -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="bg-light-brown">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary-orange shadow-sm mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fa-solid fa-boxes-packing me-2"></i>Merch Control
+            </a>
+            <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-white active" id="pills-registro-tab" data-bs-toggle="pill" data-bs-target="#pills-registro" type="button" role="tab"><i class="fa-solid fa-pen-to-square me-1"></i>Registro</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-white" id="pills-resumen-tab" data-bs-toggle="pill" data-bs-target="#pills-resumen" type="button" role="tab"><i class="fa-solid fa-chart-pie me-1"></i>Resumen</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link text-white" id="pills-config-tab" data-bs-toggle="pill" data-bs-target="#pills-config" type="button" role="tab"><i class="fa-solid fa-gear me-1"></i>Config</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container pb-5">
+        <div class="tab-content" id="pills-tabContent">
+            
+            <!-- PESTAÑA DE REGISTRO -->
+            <div class="tab-pane fade show active" id="pills-registro" role="tabpanel">
+                <div class="card shadow-sm border-0 rounded-4">
+                    <div class="card-body p-4">
+                        <h4 class="card-title text-orange mb-4"><i class="fa-solid fa-clipboard-check me-2"></i>Nuevo Registro</h4>
+                        
+                        <form id="registroForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Fecha del Registro *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-pastel text-brown border-0"><i class="fa-regular fa-calendar"></i></span>
+                                        <input type="date" class="form-control bg-light border-0 shadow-none" id="fechaRegistroInput" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Item *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-pastel text-brown border-0"><i class="fa-solid fa-box"></i></span>
+                                        <select class="form-select bg-light border-0 shadow-none" id="itemInput" required>
+                                            <option value="" disabled selected>Seleccionar...</option>
+                                            <option value="Cuaderno">Cuaderno</option>
+                                            <option value="Lapicera">Lapicera</option>
+                                            <option value="Botella">Botella</option>
+                                            <option value="Separador">Separador</option>
+                                            <option value="Bolsa">Bolsa</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Cantidad *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-pastel text-brown border-0"><i class="fa-solid fa-hashtag"></i></span>
+                                        <input type="number" class="form-control bg-light border-0 shadow-none" id="cantidadInput" min="1" value="1" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">¿Voucher? *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-pastel text-brown border-0"><i class="fa-solid fa-ticket"></i></span>
+                                        <select class="form-select bg-light border-0 shadow-none" id="voucherInput" required>
+                                            <option value="" disabled selected>Seleccionar...</option>
+                                            <option value="Sí">Sí</option>
+                                            <option value="No">No</option>
+                                            <option value="Pendiente">Pendiente</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Destino *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-pastel text-brown border-0"><i class="fa-solid fa-location-dot"></i></span>
+                                        <select class="form-select bg-light border-0 shadow-none" id="destinoInput" required>
+                                            <option value="" disabled selected>Seleccionar...</option>
+                                            <option value="Stand Principal">Stand Principal</option>
+                                            <option value="San Juan">San Juan</option>
+                                            <option value="Depósito">Depósito</option>
+                                            <option value="Sorteo">Sorteo</option>
+                                            <option value="Otro">Otro</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Usuario *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-pastel text-brown border-0"><i class="fa-solid fa-user"></i></span>
+                                        <select class="form-select bg-light border-0 shadow-none" id="usuarioInput" required>
+                                            <option value="" disabled selected>Seleccionar...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Observaciones</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-pastel text-brown border-0"><i class="fa-regular fa-comment"></i></span>
+                                        <input type="text" class="form-control bg-light border-0 shadow-none" id="obsInput" placeholder="Opcional...">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-center">
+                                <button type="submit" class="btn btn-primary-orange btn-lg w-100 rounded-pill fw-bold text-white shadow-sm hover-effect">
+                                    <i class="fa-solid fa-check-circle me-2"></i>Guardar Registro
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PESTAÑA DE RESUMEN (DASHBOARD) -->
+            <div class="tab-pane fade" id="pills-resumen" role="tabpanel">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="text-brown m-0 d-none d-md-block"><i class="fa-solid fa-chart-line me-2"></i>Resumen</h4>
+                    <div class="d-flex flex-wrap justify-content-end align-items-center gap-2">
+                        <div class="d-flex align-items-center">
+                            <input type="date" id="fechaFiltro" class="form-control form-control-sm border-orange text-orange fw-bold shadow-sm" style="width: auto;">
+                        </div>
+                        <button class="btn btn-success btn-sm rounded-pill fw-bold" onclick="exportarExcel()">
+                            <i class="fa-solid fa-file-excel me-1"></i> Exportar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Alertas -->
+                <div id="alertaVoucherContainer" class="mb-4"></div>
+
+                <div class="row g-4" id="dashboardCards">
+                    <!-- Las tarjetas se generarán dinámicamente con JS -->
+                </div>
+                
+                <h5 class="text-brown mt-5 mb-3"><i class="fa-solid fa-users me-2"></i>Por Usuario</h5>
+                <div class="row g-4" id="dashboardUsuariosCards">
+                    <!-- Dinámico -->
+                </div>
+                
+                <!-- Tabla de últimos registros -->
+                <div class="card shadow-sm border-0 rounded-4 mt-5">
+                    <div class="card-body">
+                        <h5 class="card-title text-orange mb-3"><i class="fa-solid fa-list me-2"></i>Registros del Día</h5>
+                        <div class="table-responsive">
+                            <table class="table table-hover border-pastel align-middle">
+                                <thead>
+                                    <tr class="table-pastel">
+                                        <th>Hora</th>
+                                        <th>Item</th>
+                                        <th>Cant.</th>
+                                        <th>Voucher</th>
+                                        <th>Usuario</th>
+                                        <th class="text-end">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ultimosRegistrosTable">
+                                    <!-- Dinámico -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PESTAÑA DE CONFIGURACIÓN -->
+            <div class="tab-pane fade" id="pills-config" role="tabpanel">
+                <div class="card shadow-sm border-0 rounded-4">
+                    <div class="card-body p-4">
+                        <h4 class="card-title text-orange mb-4"><i class="fa-solid fa-boxes-stacked me-2"></i>Configuración de Stock Inicial</h4>
+                        <p class="text-muted mb-4">Ajusta el stock inicial del día para que el sistema calcule los sobrantes correctamente.</p>
+                        
+                        <form id="configForm">
+                            <div class="row g-3 align-items-center mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">📓 Cuadernos</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="number" class="form-control bg-light border-0" id="stockCuaderno" min="0" value="50" required>
+                                </div>
+                            </div>
+                            <div class="row g-3 align-items-center mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">✏️ Lapiceras</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="number" class="form-control bg-light border-0" id="stockLapicera" min="0" value="50" required>
+                                </div>
+                            </div>
+                            <div class="row g-3 align-items-center mb-4">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">🍼 Botellas</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="number" class="form-control bg-light border-0" id="stockBotella" min="0" value="50" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary-orange rounded-pill text-white fw-bold px-4">
+                                <i class="fa-solid fa-save me-2"></i>Guardar Stock
+                            </button>
+                        </form>
+                            
+                        <hr class="my-5">
+                        <h4 class="card-title text-orange mb-4"><i class="fa-solid fa-users-gear me-2"></i>Gestión de Usuarios</h4>
+                        <form id="addUserForm" class="mb-4">
+                            <div class="row g-2 align-items-center">
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control bg-light border-0 shadow-none" id="nuevoUsuarioInput" placeholder="Nombre del nuevo usuario" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-primary-orange rounded-pill w-100 text-white fw-bold">
+                                        <i class="fa-solid fa-plus me-2"></i>Agregar
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-hover border-pastel align-middle">
+                                <thead>
+                                    <tr class="table-pastel">
+                                        <th>Usuario</th>
+                                        <th class="text-end">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="configUsuariosTable">
+                                    <!-- Dinámico -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <hr class="my-5">
+                        <h5 class="text-danger"><i class="fa-solid fa-triangle-exclamation me-2"></i>Zona de Peligro</h5>
+                            <button type="button" class="btn btn-outline-danger rounded-pill" onclick="borrarDatos()">
+                                <i class="fa-solid fa-trash me-2"></i>Borrar TODOS los datos locales
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="js/app.js"></script>
+</body>
+</html>

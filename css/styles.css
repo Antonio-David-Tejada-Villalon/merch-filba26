@@ -1,0 +1,134 @@
+/* Paleta de colores solicitada: Naranja y marrón pastel */
+:root {
+    --primary-orange: #f27a22; /* Naranja vibrante moderno */
+    --primary-orange-hover: #d96a1a;
+    --pastel-brown: #f1e6dc; /* Marrón muy claro / beige pastel */
+    --dark-brown: #5c4331; /* Marrón oscuro para textos */
+    --light-bg: #faf7f5; /* Fondo general */
+}
+
+body {
+    background-color: var(--light-bg);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: var(--dark-brown);
+}
+
+.bg-light-brown {
+    background-color: var(--light-bg);
+}
+
+.bg-primary-orange {
+    background-color: var(--primary-orange) !important;
+}
+
+.text-orange {
+    color: var(--primary-orange) !important;
+}
+
+.text-brown {
+    color: var(--dark-brown) !important;
+}
+
+.bg-pastel {
+    background-color: var(--pastel-brown) !important;
+}
+
+.table-pastel {
+    background-color: var(--pastel-brown) !important;
+    color: var(--dark-brown);
+}
+
+.border-pastel {
+    border-color: var(--pastel-brown) !important;
+}
+
+/* Botones personalizados */
+.btn-primary-orange {
+    background-color: var(--primary-orange);
+    border-color: var(--primary-orange);
+    transition: all 0.2s ease;
+}
+
+.btn-primary-orange:hover, .btn-primary-orange:active {
+    background-color: var(--primary-orange-hover) !important;
+    border-color: var(--primary-orange-hover) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(242, 122, 34, 0.3);
+}
+
+.hover-effect:active {
+    transform: scale(0.98);
+}
+
+/* Navbar Tabs */
+.nav-pills .nav-link {
+    color: rgba(255,255,255,0.8) !important;
+    border-radius: 20px;
+    padding: 0.5rem 1.2rem;
+    margin: 0 0.2rem;
+    font-weight: 500;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #ffffff !important;
+    color: var(--primary-orange) !important;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.nav-pills .nav-link:hover:not(.active) {
+    background-color: rgba(255,255,255,0.2) !important;
+    color: white !important;
+}
+
+/* Inputs y Selects */
+.form-control, .form-select {
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.input-group-text {
+    border-radius: 10px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    width: 45px;
+    justify-content: center;
+}
+
+.form-control:focus, .form-select:focus {
+    box-shadow: 0 0 0 0.25rem rgba(242, 122, 34, 0.25);
+    background-color: #fff;
+}
+
+/* Tarjetas Dashboard */
+.stat-card {
+    border-left: 5px solid var(--primary-orange);
+    transition: transform 0.2s;
+}
+.stat-card:hover {
+    transform: translateY(-3px);
+}
+
+.user-card {
+    background: linear-gradient(135deg, #ffffff 0%, var(--pastel-brown) 100%);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Responsividad para móviles */
+@media (max-width: 768px) {
+    .nav-pills {
+        justify-content: center;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .nav-pills .nav-item {
+        flex: 1;
+        text-align: center;
+    }
+    .nav-pills .nav-link {
+        padding: 0.5rem 0;
+        font-size: 0.9rem;
+    }
+}
